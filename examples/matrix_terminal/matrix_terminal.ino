@@ -5,7 +5,7 @@
 
 #include <Adafruit_dvhstx.h>
 
-DVHSTXPinout pinConfig = {18, {12, 14, 16}};
+DVHSTXPinout pinConfig = {15, 19, 17, 13};
 DVHSTX16 display(pinConfig, DVHSTX_RESOLUTION_320x240);
 
 // Inverted colors for hardware

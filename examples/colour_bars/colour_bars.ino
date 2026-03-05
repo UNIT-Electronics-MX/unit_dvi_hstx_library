@@ -18,9 +18,8 @@
 
 #include <Adafruit_dvhstx.h>
 
-DVHSTXPinout pinConfig = {18, 12, 14, 16};
-DVHSTX16 display(pinConfig, DVHSTX_RESOLUTION_640x480);
-
+DVHSTXPinout pinConfig = {14, 18, 16, 12};
+DVHSTX16 display(pinConfig, DVHSTX_RESOLUTION_320x240);
 // Colores SMPTE estándar (RGB565)
 #define SMPTE_WHITE   0xFFFF  // 255, 255, 255
 #define SMPTE_YELLOW  0xFFE0  // 255, 255, 0
