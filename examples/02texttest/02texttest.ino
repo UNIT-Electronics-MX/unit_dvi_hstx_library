@@ -1,5 +1,8 @@
-// Text mode demo
+// Text mode demo - FIXED VERSION
 // With apologies to Stanley Kubrick et al
+// Configuración: D1(GPIO18)=Clock+, D7(GPIO12)=Data0+(Blue), D5(GPIO14)=Data1+(Green), D3(GPIO16)=Data2+(Red)
+// NOTA: Usa DVHSTX16 con Adafruit_GFX en lugar de DVHSTXText (que no funciona)
+
 #include <Adafruit_dvhstx.h>
 
 #if defined(ADAFRUIT_FEATHER_RP2350_HSTX)
@@ -8,108 +11,143 @@ DVHSTXPinout pinConfig = ADAFRUIT_FEATHER_RP2350_CFG;
 DVHSTXPinout pinConfig = ADAFRUIT_METRO_RP2350_CFG;
 #elif defined(ARDUINO_ADAFRUIT_FRUITJAM_RP2350)
 DVHSTXPinout pinConfig = ADAFRUIT_FRUIT_JAM_CFG;
+#elif defined(ARDUINO_NANO_RP2350_CONNECT)
+DVHSTXPinout pinConfig = ARDUINO_NANO_RP2350_DVI_CFG;
 #elif (defined(ARDUINO_RASPBERRY_PI_PICO_2) || defined(ARDUINO_RASPBERRY_PI_PICO_2W))
 DVHSTXPinout pinConfig = ADAFRUIT_HSTXDVIBELL_CFG;
 #else
-// If your board definition has PIN_CKP and related defines,
-// DVHSTX_PINOUT_DEFAULT is available
-DVHSTXPinout pinConfig = DVHSTX_PINOUT_DEFAULT;
+// Configuración estándar: {Clock+, Data0+(Blue), Data1+(Green), Data2+(Red)}
+DVHSTXPinout pinConfig = {18, 12, 14, 16};
 #endif
 
+// Usar DVHSTX16 con GFX en lugar de DVHSTXText
+DVHSTX16 display(pinConfig, DVHSTX_RESOLUTION_640x480);
 
-DVHSTXText display(pinConfig);
-// If you get the message "error: 'DVHSTX_PINOUT_DEFAULTx' was not declared"
-// then you need to give the pins numbers explicitly, like the example below.
-// The order is: {CKP, D0P, D1P, D2P}.
-//
-// DVHSTXText display({12, 14, 16, 18});
+// Colores RGB565
+#define COLOR_BLACK   0x0000
+#define COLOR_RED     0xF800
+#define COLOR_GREEN   0x07E0
+#define COLOR_BLUE    0x001F
+#define COLOR_YELLOW  0xFFE0
+#define COLOR_MAGENTA 0xF81F
+#define COLOR_CYAN    0x07FF
+#define COLOR_WHITE   0xFFFF
 
-const static TextColor colors[] = {
-    TextColor::TEXT_BLACK, TextColor::TEXT_RED,    TextColor::TEXT_GREEN,
-    TextColor::TEXT_BLUE,  TextColor::TEXT_YELLOW, TextColor::TEXT_MAGENTA,
-    TextColor::TEXT_CYAN,  TextColor::TEXT_WHITE,
+const uint16_t colors[] = {
+    COLOR_BLACK, COLOR_RED, COLOR_GREEN, COLOR_BLUE,
+    COLOR_YELLOW, COLOR_MAGENTA, COLOR_CYAN, COLOR_WHITE
 };
 
-const static TextColor background_colors[] = {
-    TextColor::BG_BLACK, TextColor::BG_RED,    TextColor::BG_GREEN,
-    TextColor::BG_BLUE,  TextColor::BG_YELLOW, TextColor::BG_MAGENTA,
-    TextColor::BG_CYAN,  TextColor::BG_WHITE,
+const char* colorNames[] = {
+    "Negro", "Rojo", "Verde", "Azul",
+    "Amarillo", "Magenta", "Cyan", "Blanco"
 };
 
-const static TextColor intensity[] = {TextColor::ATTR_NORMAL_INTEN,
-                                      TextColor::ATTR_LOW_INTEN,
-                                      TextColor::ATTR_V_LOW_INTEN};
+int cursorX = 5, cursorY = 5;
+int textSize = 1;
+uint16_t currentColor = COLOR_WHITE;
 
 void setup() {
   Serial.begin(115200);
-  if (!display.begin()) { // Blink LED if insufficient RAM
+  delay(1000);
+  
+  Serial.println("Text Test - Using DVHSTX16 with GFX");
+  
+  if (!display.begin()) {
+    Serial.println("ERROR: Display initialization failed!");
     pinMode(LED_BUILTIN, OUTPUT);
     for (;;)
       digitalWrite(LED_BUILTIN, (millis() / 500) & 1);
   }
-  display.setColor(TextColor::TEXT_BLACK, TextColor::BG_WHITE);
-  display.clear();
-  display.showCursor();
-  display.print("display initialized (black on white background)\n\n\n\n\n");
-  display.println("line wrap test. one line should be full of 'w's and the "
-                  "next line should start 'xy'.");
-  for (int i = 0; i < display.width(); i++)
+  
+  Serial.println("Display initialized successfully!");
+  
+  // Fondo blanco, texto negro
+  display.fillScreen(COLOR_WHITE);
+  display.setTextSize(1);
+  display.setTextColor(COLOR_BLACK);
+  display.setTextWrap(true);
+  display.setCursor(5, 5);
+  
+  display.println("display initialized");
+  display.println("(black on white background)");
+  display.println();
+  display.println();
+  
+  // Line wrap test
+  display.println("line wrap test. one line should");
+  display.println("be full of 'w's and the next");
+  display.println("line should start 'xy'.");
+  
+  for (int i = 0; i < 106; i++) {  // ~106 caracteres en 640px
     display.write('w');
+  }
   display.println("xy");
-  display.println("\n\nAttribute test\n");
-  display.print("   ");
-  for (int d : background_colors) {
-    display.printf(" %d ri vli ", (int)d >> 3);
+  display.println();
+  display.println();
+  
+  // Color test
+  display.println("Color test:");
+  display.println();
+  
+  for (int i = 0; i < 8; i++) {
+    display.setTextColor(colors[i], COLOR_WHITE);
+    display.print(colorNames[i]);
+    display.print("  ");
+    if (i == 3) display.println();
   }
-  display.write('\n');
-  for (TextColor c : colors) {
-    display.printf(" %d ", (int)c);
-    for (TextColor d : background_colors) {
-      display.setColor(c, d);
-      display.write('*');
-      display.write('*');
-      display.write('*');
-      display.setColor(c, d, TextColor::ATTR_LOW_INTEN);
-      display.write('*');
-      display.write('*');
-      display.write('*');
-      display.setColor(c, d, TextColor::ATTR_V_LOW_INTEN);
-      display.write('*');
-      display.write('*');
-      display.write('*');
-      display.setColor(TextColor::TEXT_BLACK, TextColor::BG_WHITE);
-      display.write(' ');
-    }
-    display.write('\n');
+  
+  display.println();
+  display.println();
+  
+  // Size test
+  display.setTextColor(COLOR_BLACK, COLOR_WHITE);
+  display.println("Text size test:");
+  
+  for (int size = 1; size <= 3; size++) {
+    display.setTextSize(size);
+    display.print("Size ");
+    display.println(size);
   }
-  display.write('\n');
-  display.write('\n');
+  
+  display.setTextSize(1);
+  display.println();
+  
+  // ASCII test
+  display.println("ASCII characters:");
+  display.print("!@#$%^&*()_+-=[]{}|;:,.<>?/");
+  display.println();
+  display.println();
+  
+  cursorY = display.getCursorY();
+  
+  Serial.println("Setup complete - starting loop");
 }
 
 const char message[] = "All work and no play makes Jack a dull boy ";
+int msgIndex = 0;
+uint16_t loopColor = COLOR_BLACK;
 
-int cx, cy, i;
 void loop() {
-  if (i == 0) {
-    static_assert(std::size(colors) == std::size(background_colors));
-    auto fg_idx = random(std::size(colors));
-    auto bg_idx = random(std::size(colors)) - 1;
-    auto inten_idx = random(std::size(intensity));
-    if (bg_idx == fg_idx)
-      bg_idx++; // never bg == fg
-    for (int j = random(6); j; j--)
+  // Cambiar color aleatoriamente al inicio de cada frase
+  if (msgIndex == 0) {
+    loopColor = colors[random(1, 8)];  // Evitar negro a veces
+    
+    // Agregar algunos espacios aleatorios
+    for (int j = random(6); j; j--) {
+      display.setTextColor(loopColor, COLOR_WHITE);
       display.write(' ');
-    display.setColor(colors[fg_idx], background_colors[bg_idx],
-                     intensity[inten_idx]);
-    for (int j = random(6); j; j--)
-      display.write(' ');
+    }
   }
 
-  int ch = message[i++];
+  // Escribir el siguiente caracter
+  char ch = message[msgIndex++];
   if (ch) {
+    display.setTextColor(loopColor, COLOR_WHITE);
     display.write(ch);
-  } else
-    i = 0;
+  } else {
+    msgIndex = 0;
+  }
 
-  sleep_ms(32 + random(32));
+  delay(50 + random(50));
 }

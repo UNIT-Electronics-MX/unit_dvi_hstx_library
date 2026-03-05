@@ -1,4 +1,5 @@
 // 16-bit Adafruit_GFX-compatible framebuffer for RP2350 HSTX
+// Configuración: D1(GPIO18)=Clock+, D7(GPIO12)=Data0+(Blue), D5(GPIO14)=Data1+(Green), D3(GPIO16)=Data2+(Red)
 
 #include <Adafruit_dvhstx.h>
 
@@ -9,12 +10,13 @@ DVHSTXPinout pinConfig = ADAFRUIT_FEATHER_RP2350_CFG;
 DVHSTXPinout pinConfig = ADAFRUIT_METRO_RP2350_CFG;
 #elif defined(ARDUINO_ADAFRUIT_FRUITJAM_RP2350)
 DVHSTXPinout pinConfig = ADAFRUIT_FRUIT_JAM_CFG;
+#elif defined(ARDUINO_NANO_RP2350_CONNECT)
+DVHSTXPinout pinConfig = ARDUINO_NANO_RP2350_DVI_CFG;
 #elif (defined(ARDUINO_RASPBERRY_PI_PICO_2) || defined(ARDUINO_RASPBERRY_PI_PICO_2W))
 DVHSTXPinout pinConfig = ADAFRUIT_HSTXDVIBELL_CFG;
 #else
-// If your board definition has PIN_CKP and related defines,
-// DVHSTX_PINOUT_DEFAULT is available
-DVHSTXPinout pinConfig = DVHSTX_PINOUT_DEFAULT;
+// Configuración estándar: {Clock+, Data0+(Blue), Data1+(Green), Data2+(Red)}
+DVHSTXPinout pinConfig = {18, 12, 14, 16};
 #endif
 
 

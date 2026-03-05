@@ -106,6 +106,12 @@ using pimoroni::DVHSTXPinout;
   { 14, 18, 16, 12 }
 #define ADAFRUIT_FRUIT_JAM_CFG                                                 \
   { 13, 15, 17, 19 }
+// Standard RP2350 HSTX pinout: GPIO14=CK+, GPIO18=D0+, GPIO16=D1+, GPIO12=D2+
+#define RP2350_STANDARD_DVI_CFG                                                \
+  { 14, 18, 16, 12 }
+// Arduino Nano RP2350 alternative: D1=CK+, D7=D0+, D5=D1+, D3=D2+
+#define ARDUINO_NANO_RP2350_DVI_CFG                                            \
+  { 18, 12, 14, 16 }
 
 int16_t dvhstx_width(DVHSTXResolution r);
 int16_t dvhstx_height(DVHSTXResolution r);
