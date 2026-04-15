@@ -2,7 +2,7 @@
 // Arduino RP2350 + DVI/HDMI
 // Visualiza señal analógica en tiempo real
 
-#include <Adafruit_dvhstx.h>
+#include <udvi_hstx.h>
 
 // Configuración HDMI - Usar pines que funcionan
 DVHSTXPinout pinConfig = {14, 18, 16, 12};

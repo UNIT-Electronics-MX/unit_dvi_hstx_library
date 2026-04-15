@@ -1,0 +1,46 @@
+name: Arduino Library CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  compile-examples:
+    strategy:
+      fail-fast: false
+      matrix:
+        fqbn:
+          - "rp2040:rp2040:adafruit_feather_rp2350_hstx"
+          - "rp2040:rp2040:adafruit_metro_rp2350"
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: arduino/compile-sketches@v1
+        with:
+          fqbn: ${{ matrix.fqbn }}
+          platforms: |
+            - name: rp2040:rp2040
+              source-url: https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json
+          libraries: |
+            - source-path: ./
+            - name: Adafruit GFX Library
+          sketch-paths: |
+            - examples/00simpletest
+            - examples/01palettetest
+            - examples/02texttest
+          enable-deltas-report: true
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: arduino/arduino-lint-action@v2
+        with:
+          library-manager: update
+          compliance: specification

@@ -1,5 +1,5 @@
 #include <Wire.h>
-#include <Adafruit_dvhstx.h>
+#include <udvi_hstx.h>
 
 #define EDID_ADDR 0x50
 

@@ -4,7 +4,7 @@
 // NOTE: Hardware inverts colors, so we use ~color
 // Style: Wireframe vector graphics like Asteroids/Battlezone era
 
-#include <Adafruit_dvhstx.h>
+#include <udvi_hstx.h>
 
 DVHSTXPinout pinConfig = {18, {12, 14, 16}};
 DVHSTX16 display(pinConfig, DVHSTX_RESOLUTION_320x240);

@@ -5,7 +5,7 @@
 // D5 (GPIO14) = Data1+ (Green)
 // D3 (GPIO16) = Data2+ (Red)
 
-#include <Adafruit_dvhstx.h>
+#include <udvi_hstx.h>
 
 // Configuración: {Clock+, Data0+, Data1+, Data2+}
 DVHSTXPinout pinConfig = {18, 12, 14, 16};

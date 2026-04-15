@@ -1,17 +1,13 @@
-Thank you for opening an issue on an Adafruit Arduino library repository.  To
+Thank you for opening an issue on the UDVI HSTX library repository. To
 improve the speed of resolution please review the following guidelines and
 common troubleshooting steps below before creating the issue:
 
-- **Do not use GitHub issues for troubleshooting projects and issues.**  Instead use
-  the forums at http://forums.adafruit.com to ask questions and troubleshoot why
-  something isn't working as expected.  In many cases the problem is a common issue
-  that you will more quickly receive help from the forum community.  GitHub issues
-  are meant for known defects in the code.  If you don't know if there is a defect
-  in the code then start with troubleshooting on the forum first.
+- **Do not use GitHub issues for troubleshooting projects and issues.**  Instead
+  open a discussion or check the documentation first. GitHub issues
+  are meant for known defects in the code.
 
 - **If following a tutorial or guide be sure you didn't miss a step.** Carefully
-  check all of the steps and commands to run have been followed.  Consult the
-  forum if you're unsure or have questions about steps in a guide/tutorial.
+  check all of the steps and commands to run have been followed.
 
 - **For Arduino projects check these very common issues to ensure they don't apply**:
 

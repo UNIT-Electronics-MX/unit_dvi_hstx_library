@@ -4,7 +4,7 @@
 // NOTE: Hardware inverts colors, so we use ~color
 // Style: Retro space simulator with planets, moons, and stars
 
-#include <Adafruit_dvhstx.h>
+#include <udvi_hstx.h>
 
 DVHSTXPinout pinConfig = {18, {12, 14, 16}};
 DVHSTX16 display(pinConfig, DVHSTX_RESOLUTION_320x240);

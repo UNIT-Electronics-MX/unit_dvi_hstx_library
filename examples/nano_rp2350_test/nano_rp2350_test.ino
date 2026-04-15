@@ -7,7 +7,7 @@
 // D5 (GPIO14) -> Green+ (Data1)
 // D3 (GPIO16) -> Red+ (Data2)
 
-#include <Adafruit_dvhstx.h>
+#include <udvi_hstx.h>
 
 // Configuración de pines para Arduino Nano RP2350
 // Orden: {Clock+, Data0+, Data1+, Data2+}

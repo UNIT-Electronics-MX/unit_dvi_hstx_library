@@ -3,7 +3,7 @@
 // Pines: D1(GPIO18)=Clock+, D7(GPIO12)=Data0+(Blue), D5(GPIO14)=Data1+(Green), D3(GPIO16)=Data2+(Red)
 // Control: Usa el monitor serial para enviar comandos (w/a/s/d)
 
-#include <Adafruit_dvhstx.h>
+#include <udvi_hstx.h>
 
 DVHSTXPinout pinConfig = {18, 12, 14, 16};
 DVHSTX16 display(pinConfig, DVHSTX_RESOLUTION_320x240);

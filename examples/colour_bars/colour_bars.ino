@@ -16,7 +16,7 @@
 // - 'g' = Grayscale ramp
 // - 'c' = RGB component test
 
-#include <Adafruit_dvhstx.h>
+#include <udvi_hstx.h>
 
 DVHSTXPinout pinConfig = {14, 18, 16, 12};
 DVHSTX16 display(pinConfig, DVHSTX_RESOLUTION_320x240);

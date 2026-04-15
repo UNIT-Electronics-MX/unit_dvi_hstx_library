@@ -2,7 +2,7 @@
 // Arduino Nano RP2350 - Configuración alternativa
 // D5=Clock+, D1=Data0+, D3=Data1+, D7=Data2+
 
-#include <Adafruit_dvhstx.h>
+#include <udvi_hstx.h>
 
 // Nueva distribución: {Clock+, Data0+, Data1+, Data2+}
 // {GPIO14, GPIO18, GPIO16, GPIO12} = {D5, D1, D3, D7}

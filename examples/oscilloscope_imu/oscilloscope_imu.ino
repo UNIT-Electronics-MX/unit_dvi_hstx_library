@@ -3,7 +3,7 @@
 // Muestra acelerómetro y giroscopio en tiempo real
 
 #include <Wire.h>
-#include <Adafruit_dvhstx.h>
+#include <udvi_hstx.h>
 #include "SparkFun_BMI270_Arduino_Library.h"
 
 // Configuración HDMI

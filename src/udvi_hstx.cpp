@@ -1,4 +1,4 @@
-#include "Adafruit_dvhstx.h"
+#include "udvi_hstx.h"
 
 int16_t dvhstx_width(DVHSTXResolution r) {
   switch (r) {
