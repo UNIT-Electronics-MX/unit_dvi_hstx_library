@@ -3,7 +3,7 @@
 // Pines: D1(GPIO18)=Clock+, D7(GPIO12)=Data0+, D5(GPIO14)=Data1+, D3(GPIO16)=Data2+
 // NOTA: Este hardware invierte los colores, por eso usamos ~color
 
-#include <udvi_hstx.h>
+#include <UDVI_HSTX.h>
 
 DVHSTXPinout pinConfig = {18, {12, 14, 16}};
 DVHSTX16 display(pinConfig, DVHSTX_RESOLUTION_320x240);

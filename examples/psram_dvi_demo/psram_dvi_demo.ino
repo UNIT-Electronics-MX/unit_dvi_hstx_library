@@ -6,7 +6,7 @@
 // PSRAM: GPIO0=CS, GPIO47-50=QSPI Data, GPIO52=QSPI CLK
 // NOTE: Hardware inverts colors, so we use ~color
 
-#include <udvi_hstx.h>
+#include <UDVI_HSTX.h>
 #include "hardware/gpio.h"
 #include "hardware/spi.h"
 

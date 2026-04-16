@@ -11,7 +11,7 @@
 // D6 (GPIO13) -> Data2−
 // D7 (GPIO12) -> Data2+
 
-#include <udvi_hstx.h>
+#include <UDVI_HSTX.h>
 
 // Nueva configuración de pines
 // Orden: {Clock+, Data0+, Data1+, Data2+}

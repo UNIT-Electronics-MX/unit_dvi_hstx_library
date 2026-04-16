@@ -1,7 +1,7 @@
 // Test de señal HDMI intensivo
 // Si el display inicializa pero no hay imagen, es problema de señal física
 
-#include <udvi_hstx.h>
+#include <UDVI_HSTX.h>
 
 // NOTA: Cambia el índice pinConfigIndex para probar diferentes configuraciones
 // El pin 18 siempre es el CLOCK (fijo)

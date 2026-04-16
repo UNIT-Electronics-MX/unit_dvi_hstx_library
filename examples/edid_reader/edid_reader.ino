@@ -1,5 +1,5 @@
 #include <Wire.h>
-#include <udvi_hstx.h>
+#include <UDVI_HSTX.h>
 
 #define EDID_ADDR 0x50
 

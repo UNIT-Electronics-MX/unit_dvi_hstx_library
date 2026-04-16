@@ -4,7 +4,7 @@
 // NOTE: Hardware inverts colors, so we use ~color
 // Controls: w/s = up/down, Enter = select, Esc = back
 
-#include <udvi_hstx.h>
+#include <UDVI_HSTX.h>
 
 DVHSTXPinout pinConfig = {14, 18, 16, 12};
 DVHSTX16 display(pinConfig, DVHSTX_RESOLUTION_320x240);

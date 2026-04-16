@@ -90,7 +90,7 @@ display.println("RP2350");
 ### Ejemplo Completo de Texto Multi-Color
 
 ```cpp
-#include <udvi_hstx.h>
+#include <UDVI_HSTX.h>
 
 DVHSTXPinout pinConfig = {18, 12, 14, 16};
 DVHSTX16 display(pinConfig, DVHSTX_RESOLUTION_640x480);
